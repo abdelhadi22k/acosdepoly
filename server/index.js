@@ -18,6 +18,18 @@ dotenv.config();
 const port = process.env.PORT || 4444;
 //
 app.use(cors());
+
+
+app.use(cors(
+  {
+    origin:["https://deploy-mern-api.vercel.app"],
+    methods:["POST","GET"],
+    credentiais:true
+    
+  }
+));
+
+
 app.use(express.json());
 
 app.use("/api/seed", seedRouter);
@@ -28,6 +40,9 @@ app.use("/api/orders", order);
 app.get("/api/keys/paypal", (req, res) => {
   res.send("sb");
 });
+app.get("/", (req, res) => {
+  res.send("Hello world");
+})
 const __dirname = path.resolve();
 
 app.use(express.static(path.join(__dirname, "/client/build")));
